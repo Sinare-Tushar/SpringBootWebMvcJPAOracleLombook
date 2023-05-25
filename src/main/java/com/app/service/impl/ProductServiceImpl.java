@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional(readOnly = true)
 	public List<Product> getAllProducts() {
+		
 		return repo.findAll();
 	}
 
@@ -37,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
 	public Optional<Product> getProductById(Integer id) {
 
 		return repo.findById(id);
-	}
+	
+}
 
 }

@@ -13,23 +13,23 @@ import com.app.modal.Product;
 import com.app.service.ProductService;
 
 @Controller
-@RequestMapping(path = "emp")
+@RequestMapping("emp")
 public class ProductController {
 	@Autowired
 	private ProductService service;
 
-	@PostMapping(path = "show")
+	@GetMapping("show")
 	public String showPages(Model m) {
 		m.addAttribute("msg", "Welcome App:" + new Date());
 		return "Home";
 	}
 
-	@PostMapping(path="reg")
+	@GetMapping("reg")
 	public String showReg(Model map) {
 		map.addAttribute("product", new Product());
 		return "Register";
 	}
-
+	
 	@PostMapping(value = "save")
 	public String saveData(@ModelAttribute Product product, Model map) {
 		Integer id = service.saveProduct(product);
@@ -38,7 +38,7 @@ public class ProductController {
 		return "Register";
 	}
 
-	@PostMapping(path = "all")
+	@GetMapping("all")
 	public String showAll(Model map) {
 		List<Product> allProduct = service.getAllProducts();
 		map.addAttribute("list", allProduct);
@@ -46,11 +46,20 @@ public class ProductController {
 
 	}
 
-	@PostMapping(value = "edit")
+	@GetMapping(value = "edit")
 	public String showEdit(@RequestParam Integer id, Model map) {
 		Optional<Product> p = service.getProductById(id);
 		map.addAttribute("product", p);
 		map.addAttribute("Mode", "EDIT");
 		return "Register";
 	}
+	
+	@DeleteMapping(value="delete")
+		public String deleteId(@RequestParam Integer id, Model map) {
+		service.deleteProduct(id);
+		List<Product> allProduct = service.getAllProducts();
+		map.addAttribute("list", allProduct);
+		return "Data";
+	}
+	
 }
