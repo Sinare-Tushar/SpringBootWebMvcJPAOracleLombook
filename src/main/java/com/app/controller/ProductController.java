@@ -17,7 +17,7 @@ import com.app.service.ProductService;
 public class ProductController {
 	private static final String REGISTER = "Register";
 	private static final String DATA = "Data";
-	private static final String PRODUCT = "product";
+	//private static final String PRODUCT = "product";
 	@Autowired
 	private ProductService service;
 
@@ -29,7 +29,7 @@ public class ProductController {
 
 	@GetMapping("reg")
 	public String showReg(Model map) {
-		map.addAttribute(PRODUCT, new Product());
+		map.addAttribute("product", new Product());
 		return REGISTER;
 	}
 	
@@ -37,7 +37,7 @@ public class ProductController {
 	public String saveData(@ModelAttribute Product product, Model map) {
 		Integer id = service.saveProduct(product);
 		map.addAttribute("message", "Product'" + id + "'created!!");
-		map.addAttribute(PRODUCT, new Product());
+		map.addAttribute("product", new Product());
 		return REGISTER;
 	}
 
@@ -52,7 +52,7 @@ public class ProductController {
 	@GetMapping(value = "edit")
 	public String showEdit(@RequestParam Integer id, Model map) {
 		Optional<Product> p = service.getProductById(id);
-		map.addAttribute(PRODUCT, p);
+		map.addAttribute("product", p);
 		map.addAttribute("Mode", "EDIT");
 		return REGISTER;
 	}
