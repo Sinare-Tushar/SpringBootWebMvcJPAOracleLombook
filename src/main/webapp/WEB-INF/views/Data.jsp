@@ -9,7 +9,8 @@
 </head>
 <body>
 <h3>WELCOME TO PRODUCT DATA</h3>
-<table>
+<table border=1>
+ <caption>Product List</caption>
 <tr>
 <th>ID</th>
 <th>CODE</th>
