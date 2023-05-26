@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.app.constant.ConstantValue;
 import com.app.modal.Product;
 import com.app.service.ProductService;
 
 @Controller
 @RequestMapping("emp")
 public class ProductController {
+	
 	@Autowired
 	private ProductService service;
 
@@ -27,7 +29,7 @@ public class ProductController {
 	@GetMapping("reg")
 	public String showReg(Model map) {
 		map.addAttribute("product", new Product());
-		return "Register";
+		return ConstantValue.REGISTER;
 	}
 	
 	@PostMapping(value = "save")
@@ -35,14 +37,14 @@ public class ProductController {
 		Integer id = service.saveProduct(product);
 		map.addAttribute("message", "Product'" + id + "'created!!");
 		map.addAttribute("product", new Product());
-		return "Register";
+		return ConstantValue.REGISTER;
 	}
 
 	@GetMapping("all")
 	public String showAll(Model map) {
 		List<Product> allProduct = service.getAllProducts();
 		map.addAttribute("list", allProduct);
-		return "Data";
+		return ConstantValue.DATA;
 
 	}
 
@@ -51,7 +53,7 @@ public class ProductController {
 		Optional<Product> p = service.getProductById(id);
 		map.addAttribute("product", p);
 		map.addAttribute("Mode", "EDIT");
-		return "Register";
+		return ConstantValue.REGISTER;
 	}
 	
 	@DeleteMapping(value="delete")
@@ -59,7 +61,7 @@ public class ProductController {
 		service.deleteProduct(id);
 		List<Product> allProduct = service.getAllProducts();
 		map.addAttribute("list", allProduct);
-		return "Data";
+		return ConstantValue.DATA;
 	}
 	
 }
